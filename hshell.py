@@ -2,6 +2,14 @@
 import subprocess
 import os
 import sys 
+
+class bcolors:
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m' 
+    ENDC = '\033[0m'
+
 username = os.getlogin()
 username = username.replace('\'', '"')
 
@@ -11,6 +19,7 @@ print('Gensokyo User : ' + username )
 print('Dokcer : DinD_' +username )
 print(' ')
 print('You have those containers : ')
+
 try:
     subprocess.call('docker exec -it ' + username + ' docker ps -a --format \'> {{.Image}}({{.ID}}) Status: {{.Status}}\'', shell=True)
 except Exception as e:
@@ -20,7 +29,7 @@ print(' ')
 print('please type "help" to see how to use hshell.')
 print(' ')
 while 1 :
-    x = input('>:')
+    x = input(bcolors.FAIL + '>:' +bcolors.ENDC)
     if str(x)[0:4] == "conn" :
         try:
             subprocess.call('docker exec -it ' + username + ' docker exec -it '+ x[4:] + ' /bin/sh', shell=True)
