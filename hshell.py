@@ -16,7 +16,7 @@ username = username.replace('\'', '"')
 print(' ')
 print('Hakurei Shell - Version 1.00')
 print('Gensokyo User : ' + username )
-print('Dokcer : DinD_' +username )
+print('Docker : DinD_' +username )
 print(' ')
 print('You have those containers : ')
 
@@ -29,10 +29,11 @@ print(' ')
 print('please type "help" to see how to use hshell.')
 print(' ')
 while 1 :
-    x = input(bcolors.FAIL + '>:' +bcolors.ENDC)
-    if str(x)[0:4] == "conn" :
+    x = input(bcolors.FAIL + '~>' +bcolors.ENDC)
+    if str(x)[0:4] == "exec" :
         try:
-            subprocess.call('docker exec -it ' + username + ' docker exec -it '+ x[4:] + ' /bin/sh', shell=True)
+            print('Now exec to ' + x[4:])
+            subprocess.call('docker exec -it ' + username + ' docker exec -it '+ x[4:], shell=True)
         except Exception as err:
             print('Do not have this container.')
 
@@ -58,7 +59,7 @@ while 1 :
         subprocess.call('docker exec -it ' + username + ' docker ps -a --format \'> {{.Image}}({{.ID}}) Status: {{.Status}}\'', shell=True)
 
     elif str(x)[0:4] == "help" :
-        print('"conn <Name>" - goto container /bin/sh.')
+        print('"exec <Name> <command>" - goto container daemon')
         print('"list" - list all container. ')
         print('"start <Name>" - start container.')
         print('"rm <Name>" - remove container.' )
